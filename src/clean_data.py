@@ -10,14 +10,29 @@ df["InvoiceDate"] = pd.to_datetime(df["InvoiceDate"], format="%d/%m/%Y %H:%M")
 # Create Revenue column
 df["Revenue"] = df["Quantity"] * df["UnitPrice"]
 
-# Save first cleaned version
-output_path = "data/cleaned_online_retail.csv"
-df.to_csv(output_path, index=False)
+# Create cancellation flag
+df["IsCancelled"] = df["InvoiceNo"].astype(str).str.startswith("C")
 
-print("Cleaning step completed.")
-print(f"Cleaned file saved to: {output_path}")
-print("\nUpdated data types:")
-print(df.dtypes)
+# Create sales-only dataset excluding cancelled rows
+sales_df = df[df["IsCancelled"] == False].copy()
 
-print("\nFirst 10 rows of cleaned data:")
+# Save outputs
+full_output_path = "data/cleaned_online_retail.csv"
+sales_output_path = "data/cleaned_online_retail_sales_only.csv"
+
+df.to_csv(full_output_path, index=False)
+sales_df.to_csv(sales_output_path, index=False)
+
+print("Day 8 cleaning step completed.")
+print(f"Full cleaned file saved to: {full_output_path}")
+print(f"Sales-only cleaned file saved to: {sales_output_path}")
+
+print("\nCancellation summary:")
+print(df["IsCancelled"].value_counts())
+
+print("\nRow counts:")
+print(f"All rows: {len(df)}")
+print(f"Sales-only rows: {len(sales_df)}")
+
+print("\nFirst 10 rows of full cleaned data:")
 print(df.head(10))
