@@ -211,3 +211,4 @@ __pycache__/
 *.pyc
 data/*.csv
 data/*.xlsx
+data/*.db
