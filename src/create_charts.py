@@ -74,15 +74,15 @@ def create_top_countries_chart(df):
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.set_xlim(0, top_countries["Revenue_m"].max() * 1.12)
+    ax.set_xlim(0, top_countries["Revenue_m"].max() * 1.16)
 
     for country, revenue_m in zip(top_countries["Country"], top_countries["Revenue_m"]):
         ax.text(
             revenue_m + 0.03,
             country,
-            f"{revenue_m:.2f}",
+            f"£{revenue_m:.2f}m",
             va="center",
-            fontsize=9,
+            fontsize=6,
         )
 
     fig.tight_layout()
