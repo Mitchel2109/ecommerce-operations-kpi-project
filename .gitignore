@@ -212,3 +212,4 @@ __pycache__/
 data/*.csv
 data/*.xlsx
 data/*.db
+reports/charts/.matplotlib-cache/
