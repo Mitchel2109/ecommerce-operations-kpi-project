@@ -16,22 +16,19 @@ MONTHLY_REVENUE_CHART = CHARTS_DIR / "monthly_revenue_trend.png"
 TOP_COUNTRIES_CHART = CHARTS_DIR / "top_countries_by_revenue.png"
 
 
-def format_pounds(value):
-    return f"GBP {value:,.0f}"
-
-
 def create_monthly_revenue_chart(df):
     monthly_revenue = (
         df.groupby("year_month", as_index=False)["Revenue"]
         .sum()
         .sort_values("year_month")
     )
+    monthly_revenue["Revenue_m"] = monthly_revenue["Revenue"] / 1_000_000
 
     fig, ax = plt.subplots(figsize=(10, 5))
 
     ax.plot(
         monthly_revenue["year_month"],
-        monthly_revenue["Revenue"],
+        monthly_revenue["Revenue_m"],
         marker="o",
         linewidth=2,
         color="#2F5597",
@@ -39,10 +36,13 @@ def create_monthly_revenue_chart(df):
 
     ax.set_title("Monthly Revenue Trend", fontsize=14, pad=12)
     ax.set_xlabel("Month")
-    ax.set_ylabel("Revenue")
+    ax.set_ylabel("Revenue (£m)")
     ax.tick_params(axis="x", rotation=45)
-    ax.yaxis.set_major_formatter(lambda value, position: format_pounds(value))
-    ax.grid(axis="y", linestyle="--", alpha=0.4)
+    plt.setp(ax.get_xticklabels(), ha="right")
+    ax.grid(axis="y", linestyle="--", alpha=0.3)
+    ax.set_axisbelow(True)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
 
     fig.tight_layout()
     fig.savefig(MONTHLY_REVENUE_CHART, dpi=150)
@@ -57,20 +57,33 @@ def create_top_countries_chart(df):
         .head(10)
         .sort_values("Revenue")
     )
+    top_countries["Revenue_m"] = top_countries["Revenue"] / 1_000_000
 
     fig, ax = plt.subplots(figsize=(10, 6))
 
     ax.barh(
         top_countries["Country"],
-        top_countries["Revenue"],
+        top_countries["Revenue_m"],
         color="#70AD47",
     )
 
     ax.set_title("Top Countries by Revenue", fontsize=14, pad=12)
-    ax.set_xlabel("Revenue")
+    ax.set_xlabel("Revenue (£m)")
     ax.set_ylabel("Country")
-    ax.xaxis.set_major_formatter(lambda value, position: format_pounds(value))
-    ax.grid(axis="x", linestyle="--", alpha=0.4)
+    ax.grid(axis="x", linestyle="--", alpha=0.3)
+    ax.set_axisbelow(True)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.set_xlim(0, top_countries["Revenue_m"].max() * 1.12)
+
+    for country, revenue_m in zip(top_countries["Country"], top_countries["Revenue_m"]):
+        ax.text(
+            revenue_m + 0.03,
+            country,
+            f"{revenue_m:.2f}",
+            va="center",
+            fontsize=9,
+        )
 
     fig.tight_layout()
     fig.savefig(TOP_COUNTRIES_CHART, dpi=150)
