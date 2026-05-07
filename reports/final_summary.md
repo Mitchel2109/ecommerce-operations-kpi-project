@@ -43,23 +43,41 @@ Key KPI outputs:
 - Top Country by Revenue: United Kingdom, around £7.93m
 - Highest Revenue Month: November 2011, around £1.35m
 
+## Chart Outputs
+
+### Monthly Revenue Trend
+
+![Monthly Revenue Trend](charts/monthly_revenue_trend.png)
+
+This chart shows total revenue by month using the cleaned sales-only dataset. It helps show how revenue changes over time and makes it easier to identify peak trading periods.
+
+From a KPI perspective, monthly revenue trend matters because it shows whether revenue is stable, growing, declining, or affected by seasonal trading patterns. In this dataset, November 2011 is the strongest revenue month, which suggests a notable late-year sales peak.
+
+### Top Countries by Revenue
+
+![Top Countries by Revenue](charts/top_countries_by_revenue.png)
+
+This chart shows the highest-revenue countries in the cleaned sales-only dataset. It makes the country-level revenue mix easier to understand at a glance.
+
+From a business perspective, this matters because revenue is highly concentrated in the United Kingdom. That concentration is useful for understanding the core market, but it also means non-UK performance should be reviewed separately when assessing growth opportunities or market diversification.
+
 ## Business Findings
 
-1. The sales-only dataset generated total revenue of £9.35m across 19,549 orders.
+1. The cleaned sales-only dataset generated total revenue of £9.35m across 19,549 orders, giving a clear baseline for commercial performance.
 
-2. Average order value was £478.06, showing a useful benchmark for order-level sales performance.
+2. Average order value was £478.06, which provides a useful benchmark for order-level sales performance and future KPI tracking.
 
 3. The United Kingdom was the strongest revenue market by a clear margin, generating around £7.93m.
 
-4. Revenue is heavily concentrated in the UK, so future reporting should separate UK and non-UK performance.
+4. Revenue is highly concentrated in the UK, so UK and non-UK performance should be reviewed separately to avoid smaller markets being hidden by the main revenue base.
 
 5. November 2011 was the highest revenue month, with revenue of around £1.35m.
 
-6. The monthly revenue trend suggests a strong late-year trading period, which may reflect seasonal demand.
+6. The monthly revenue trend suggests a strong late-year trading period, which may reflect seasonal demand and would be important for stock, staffing, and campaign planning.
 
-7. The dataset contains 9,251 cancelled rows, making cancellation tracking important for operational reporting.
+7. The dataset contains 9,251 cancelled rows, making cancellation tracking important for operational reporting and data-quality review.
 
-8. Missing customer IDs limit the reliability of full customer-level analysis, so customer KPIs should only use records where a customer identifier is available.
+8. Missing customer IDs limit full customer-level analysis, so customer KPIs should only be reported using records where a customer identifier is available.
 
 ## Limitations
 

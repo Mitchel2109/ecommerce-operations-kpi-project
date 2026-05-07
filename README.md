@@ -20,8 +20,10 @@ This project cleans and structures the data so that core business KPIs can be an
 
 - Python
 - pandas
+- matplotlib
+- SQLite
 - SQL
-- GitHub
+- Git and GitHub
 
 ## Project Structure
 
@@ -33,17 +35,15 @@ This project cleans and structures the data so that core business KPIs can be an
 
 ## Current Progress
 
-The data cleaning stage is complete and has been validated.
+The core KPI reporting pipeline is complete.
 
-The cleaning pipeline currently:
-- loads the raw Online Retail dataset
-- standardises key fields
-- converts `InvoiceDate` into a usable datetime field
-- creates a `Revenue` column
-- removes unusable rows and exact duplicates
-- creates business and data-quality flags
-- creates reporting-ready time fields
-- produces separate cleaned outputs for different analysis purposes
+The project now:
+- loads and cleans the raw Online Retail dataset
+- creates reporting-ready sales and customer analysis outputs
+- loads the cleaned sales dataset into SQLite
+- calculates key business KPIs using SQL
+- generates chart outputs for monthly revenue and country-level revenue
+- summarises the main findings in a final business report
 
 ## Current Output Files
 
@@ -79,10 +79,25 @@ A short explanation of the cleaning rules used in the project is available in:
 
 Customer-level analysis is limited by missing `CustomerID` values in the source data, so customer KPIs only cover the identifiable subset of transactions rather than the full dataset.
 
+## Reporting Outputs
+
+The project includes two simple chart outputs created with Python, pandas, and matplotlib:
+
+- `reports/charts/monthly_revenue_trend.png`
+- `reports/charts/top_countries_by_revenue.png`
+
+The monthly revenue trend chart shows how revenue changes over time and highlights the strongest trading month in the dataset.
+
+The top countries chart shows revenue by country and highlights the concentration of revenue in the United Kingdom.
+
+A final business summary is available in:
+
+- `reports/final_summary.md`
+
 ## Next Steps
 
-The next stage of the project is to:
-- load the cleaned data into SQL
-- write KPI queries
-- generate reporting outputs
-- summarise findings in a short business-style report
+Potential future improvements include:
+- export SQL KPI outputs into dedicated reporting tables or CSV files
+- add automated validation checks for key KPI totals
+- build a simple dashboard using the validated KPI outputs
+- compare UK and non-UK revenue performance in more detail
